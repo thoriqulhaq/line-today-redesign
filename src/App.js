@@ -1,25 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import {Route, Link} from "react-router-dom";
+import "./App.css";
+import NavBar from "./components/Navbar/NavBar";
+import Home from './pages/Home';
+import Bookmark from './pages/Bookmark';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            article: []
+        };
+    }
+
+    componentDidMount() {
+        const url = "https://cors-anywhere.herokuapp.com/https://today.line.me/id/portaljson/";
+        fetch(url,{
+            //mode: 'no-cors',
+            method: "GET",
+            headers: {
+                "X-Requested-With" : "XMLHttpRequest",
+                "Cookie" : "region=id"
+            }
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                    console.log(response.json()+"Hemmm");
+                    console.log(response.json());
+                }
+                throw new Error("Network response wasn't okay.")
+            })
+            .then(result => this.setState({ article: result }))
+            .catch(error => console.log(error.message))
+    }
+
+    render() {
+       return (
+           <div className="App">
+               <NavBar />
+               <Route exact path="/" component={Home}/>
+               <Route exact path="/bookmark" component={Bookmark}/>
+           </div>
+       )
+    }
 }
 
 export default App;
