@@ -12,19 +12,20 @@ class Bookmark extends Component {
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Article</th>
-                            <th></th>
+                            <th colSpan={3}>Bookmark</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
                             <td>1</td>
                             <td>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</td>
+                            <td><Button variant="success">Open</Button></td>
                             <td><Button variant="danger">Delete</Button></td>
                         </tr>
                         <tr>
                             <td>2</td>
                             <td>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</td>
+                            <td><Button variant="success">Open</Button></td>
                             <td><Button variant="danger">Delete</Button></td>
                         </tr>
                         </tbody>
