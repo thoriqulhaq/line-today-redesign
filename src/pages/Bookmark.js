@@ -1,8 +1,25 @@
 import React, { Component } from 'react';
 import {Table, Button} from "react-bootstrap";
+import BookmarkRepository from "../models/BookmarkRepository";
 
 class Bookmark extends Component {
+
+
+    getBookmarkView (bookmark) {
+                return (
+                        <tr>
+                            <td > {bookmark.articleTitle} </td>
+                            <td><Button className="text-white" href={bookmark.articleLink} variant="success">Open</Button></td>
+                            <td><Button className="text-white" variant="danger" onClick={() => BookmarkRepository.deleteBookmark(bookmark.articleId)}>Delete</Button></td>
+                        </tr>
+                )
+        }
+
+
     render() {
+        let bookmarksView = BookmarkRepository.bookmarkList().flatMap(bookmark => this.getBookmarkView((bookmark)));
+        console.log(bookmarksView);
+
         return (
             <div>
             <hr className="m-0"/>
@@ -11,23 +28,11 @@ class Bookmark extends Component {
                     <Table bordered hover>
                         <thead>
                         <tr>
-                            <th>#</th>
                             <th colSpan={3}>Bookmark</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</td>
-                            <td><Button variant="success">Open</Button></td>
-                            <td><Button variant="danger">Delete</Button></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</td>
-                            <td><Button variant="success">Open</Button></td>
-                            <td><Button variant="danger">Delete</Button></td>
-                        </tr>
+                            {bookmarksView}
                         </tbody>
                     </Table>
                 </div>
@@ -35,6 +40,7 @@ class Bookmark extends Component {
             </div>
         )
     }
+
 }
 
 export default Bookmark;

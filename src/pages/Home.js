@@ -1,11 +1,11 @@
-import React, { Component, createContext, useReduser, useEffect, useState } from 'react';
-import {Carousel, Nav, Button, Card, Row} from "react-bootstrap";
-
+import React, { Component } from 'react';
+import {Button, Card, Row} from "react-bootstrap";
+import BookmarkRepository from "../models/BookmarkRepository";
 
 class Home extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = [];
         this.url = "http://localhost:8080/https://today.line.me/id/portaljson/";
     }
 
@@ -45,16 +45,16 @@ class Home extends Component {
         return url.url
     }
 
+
     getArticleView(article) {
 
         return (
-
-                <Card style={{ width: '18rem' }} className="m-3">
-                    <Card.Img variant="top" src={this.getArticleImage(article.thumbnail)} />
+                <Card style={{ width: '18rem' }} className="m-3 bg-light">
+                    <Card.Img style={{ width: '18rem', height: '18rem', objectFit :'cover' }} className="p-3 rounded" variant="top" src={this.getArticleImage(article.thumbnail)} />
                     <Card.Body>
-                        <Card.Title>{article.title}</Card.Title>
+                        <Card.Title className="pb-4 font h6">{article.title}</Card.Title>
                         <Button href={this.getArticleUrl(article.url)} variant="outline-success">Read more</Button>
-                        <Button variant="success" className="ml-3">
+                        <Button variant="success" className="ml-3" onClick={() => BookmarkRepository.addBookmark(article.id, article.title, this.getArticleUrl(article.url))}>
                             <img src="assets/Bookmark-white.png"
                                  alt="bookmark"
                                  className="flex-row-reverse"
@@ -81,6 +81,7 @@ class Home extends Component {
             let validArticles = this.getValidArticle(this.state);
             let firstPage = this.paginate(validArticles, 20, 1);
             let articleViews = firstPage.flatMap(article => this.getArticleView((article)))
+            console.log(articleViews);
             return (
                 <div>
                 <hr className="m-0"/>
