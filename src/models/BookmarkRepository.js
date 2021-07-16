@@ -9,6 +9,8 @@ class BookmarkRepository extends Component{
         if(StorageRepository.getFromLocal('Bookmark') == null) {
             localStorage.setItem('Bookmark', JSON.stringify([{articleId, articleTitle, articleLink}]));
             alert('Article has been added to the bookmark');
+        } else if(this.bookmarkList().filter(bookmark => bookmark.articleId === articleId).length === 1) {
+            alert('Article already exist in the bookmark');
         } else {
             const bookmarks = JSON.parse(StorageRepository.getFromLocal('Bookmark')) || [];
             console.log(bookmarks);
