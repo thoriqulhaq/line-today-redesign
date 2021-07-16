@@ -18,8 +18,15 @@ class BookmarkRepository extends Component{
         }
     }
 
-    static deleteBookmark(articleId, id) {
-
+    static deleteBookmark(articleId) {
+        let newBookmark = this.bookmarkList().filter(bookmark => bookmark.articleId !== articleId);
+        if(newBookmark.length === 0){
+            localStorage.removeItem('Bookmark')
+            window.location.reload(true);
+        } else {
+            localStorage.setItem('Bookmark', JSON.stringify(newBookmark));
+            window.location.reload(true);
+        }
     }
 
     static bookmarkList() {

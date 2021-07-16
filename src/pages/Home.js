@@ -73,8 +73,10 @@ class Home extends Component {
 
     render() {
         if (this.isEmpty(this.state?.data)) {
-           return (<div>
-               <h1>Loading ...</h1>
+           return (
+               <div className="pt-5">
+               <img style={{width: '100px'}} src="https://image.flaticon.com/icons/png/512/3305/3305803.png" alt="Loading"/>
+               <h1 className="pt-5">Loading ...</h1>
            </div>)
 
         } else {
